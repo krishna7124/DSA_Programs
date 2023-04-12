@@ -1,0 +1,49 @@
+// Program 4: Use pointers to copy a string and to extract a substring from a given a string.
+
+#include <stdio.h>
+#include <string.h>
+
+void strCopy(char* dest, char* src) {
+    while (*src != '\0') {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+}
+
+void substr(char* str, int start, int len, char* result) {
+    int i;
+    for (i = 0; i < len; i++) {
+        *(result + i) = *(str + start + i);
+    }
+    *(result + len) = '\0';
+}
+
+int main() {
+    char str1[50], str2[50], substrResult[50];
+    int start, len;
+    printf("Enter string: ");
+    scanf("%s", str1);
+
+    // Copy string
+    strCopy(str2, str1);
+    printf("Copied string: %s\n", str2);
+
+    // Extract substring
+    printf("Enter start index and length of substring: ");
+    scanf("%d %d", &start, &len);
+    substr(str1, start, len, substrResult);
+    printf("Substring: %s\n", substrResult);
+
+    return 0;
+}
+
+/*
+Output:
+
+Enter string: Programming
+Copied string: Programming
+Enter start index and length of substring: 3 4
+Substring: gram
+*/
