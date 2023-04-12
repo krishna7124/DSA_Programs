@@ -1,0 +1,72 @@
+// Program13: Pointer implementation of stacks
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+void push(struct Node **top, int value) {
+    // Create a new node with the given value
+    struct Node *newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = value;
+
+    // Set the next of the new node to the current top of the stack
+    newNode->next = *top;
+
+    // Update the top of the stack to the new node
+    *top = newNode;
+
+    printf("Pushed %d onto the stack\n", value);
+}
+
+int pop(struct Node **top) {
+    // If the stack is empty, return -1
+    if (*top == NULL) {
+        printf("Stack underflow\n");
+        return -1;
+    }
+
+    // Get the data of the top node
+    int data = (*top)->data;
+
+    // Update the top of the stack to the next node
+    struct Node *temp = *top;
+    *top = (*top)->next;
+
+    // Free the memory of the top node
+    free(temp);
+
+    printf("Popped %d from the stack\n", data);
+
+    // Return the data of the top node
+    return data;
+}
+
+int main() {
+    struct Node *top = NULL;
+
+    push(&top, 10);
+    push(&top, 20);
+    push(&top, 30);
+
+    int popped1 = pop(&top);
+    int popped2 = pop(&top);
+    int popped3 = pop(&top);
+    int popped4 = pop(&top);
+
+    return 0;
+}
+
+/*
+Output:
+
+Pushed 10 onto the stack
+Pushed 20 onto the stack
+Pushed 30 onto the stack
+Popped 30 from the stack
+Popped 20 from the stack
+Popped 10 from the stack
+Stack underflow
