@@ -1,0 +1,34 @@
+//Program 5: Use a recursive function for the towers of Hanoi with three discs.
+ 
+
+#include <stdio.h>
+
+void towersOfHanoi(int numDiscs, char source, char destination, char auxiliary) {
+    if (numDiscs == 1) {
+        printf("Move disk 1 from %c to %c\n", source, destination);
+        return;
+    }
+    towersOfHanoi(numDiscs-1, source, auxiliary, destination);
+    printf("Move disk %d from %c to %c\n", numDiscs, source, destination);
+    towersOfHanoi(numDiscs-1, auxiliary, destination, source);
+}
+
+int main() {
+    int numDiscs = 3;
+    printf("Tower of Hanoi Solution for %d discs:\n", numDiscs);
+    towersOfHanoi(numDiscs, 'A', 'C', 'B');
+    return 0;
+}
+
+/*
+Output: 
+
+Tower of Hanoi Solution for 3 discs:
+Move disk 1 from A to C
+Move disk 2 from A to B
+Move disk 1 from C to B
+Move disk 3 from A to C
+Move disk 1 from B to A
+Move disk 2 from B to C
+Move disk 1 from A to C
+*/
