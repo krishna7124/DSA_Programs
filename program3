@@ -1,0 +1,50 @@
+// Program 3: Use pointers to find the length of a string and to concatenate two strings.
+
+#include <stdio.h>
+#include <string.h>
+
+int strLength(char* str) {
+    int len = 0;
+    while (*str != '\0') {
+        len++;
+        str++;
+    }
+    return len;
+}
+
+void strConcat(char* str1, char* str2) {
+    while (*str1 != '\0') {
+        str1++;
+    }
+    while (*str2 != '\0') {
+        *str1 = *str2;
+        str1++;
+        str2++;
+    }
+    *str1 = '\0';
+}
+
+int main() {
+    char str1[50], str2[50];
+    printf("Enter string 1: ");
+    scanf("%s", str1);
+    printf("Enter string 2: ");
+    scanf("%s", str2);
+
+    // Find length of string
+    printf("Length of string 1: %d\n", strLength(str1));
+
+    // Concatenate two strings
+    strConcat(str1, str2);
+    printf("Concatenated string: %s\n", str1);
+    return 0;
+}
+
+/* 
+Output: 
+Enter string 1: Hello
+Enter string 2: World
+Length of string 1: 5
+Concatenated string: HelloWorld
+
+*/
