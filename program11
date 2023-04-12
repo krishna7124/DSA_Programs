@@ -1,0 +1,69 @@
+// Program 11: Inserting a node into a singly linked list.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+void insert(struct Node **head, int value) {
+    // Create a new node with the given value
+    struct Node *newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If the linked list is empty, make the new node as head
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    // Otherwise, find the last node in the list and add the new node
+    struct Node *temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+void display(struct Node *head) {
+    // Traverse the linked list and print all nodes
+    printf("Linked list: ");
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node *head = NULL;
+    int value;
+
+    // Insert nodes into the linked list
+    insert(&head, 10);
+    insert(&head, 20);
+    insert(&head, 30);
+    insert(&head, 40);
+
+    // Display the linked list
+    display(head);
+
+    // Insert a new node with value 50 at the end of the linked list
+    insert(&head, 50);
+
+    // Display the updated linked list
+    display(head);
+
+    return 0;
+}
+
+
+/*
+Output:
+
+Linked list: 10 20 30 40 
+Linked list: 10 20 30 40 50 
+*/
