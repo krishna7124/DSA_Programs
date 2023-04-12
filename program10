@@ -1,0 +1,45 @@
+// Program 10: Write a program to sort N numbers using selection sort
+
+#include <stdio.h>
+
+int main() {
+    int n, arr[100];
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter the elements: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Sort the array using selection sort
+    for (int i = 0; i < n-1; i++) {
+        int min_index = i;
+        for (int j = i+1; j < n; j++) {
+            if (arr[j] < arr[min_index]) {
+                min_index = j;
+            }
+        }
+        int temp = arr[min_index];
+        arr[min_index] = arr[i];
+        arr[i] = temp;
+    }
+
+    // Display the sorted array
+    printf("Sorted array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+
+
+/*
+Output:
+
+Enter the number of elements: 5
+Enter the elements: 10 30 20 50 40
+Sorted array: 10 20 30 40 50
+*/
