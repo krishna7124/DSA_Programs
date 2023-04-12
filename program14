@@ -1,0 +1,88 @@
+// Program 14: Pointer implementation of queues.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Queue {
+    struct Node *front;
+    struct Node *rear;
+};
+
+void enqueue(struct Queue *q, int value) {
+    // Create a new node with the given value
+    struct Node *newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If the queue is empty, set the front and rear to the new node
+    if (q->rear == NULL) {
+        q->front = q->rear = newNode;
+        printf("Enqueued %d onto the queue\n", value);
+        return;
+    }
+
+    // Otherwise, add the new node to the rear of the queue and update the rear
+    q->rear->next = newNode;
+    q->rear = newNode;
+
+    printf("Enqueued %d onto the queue\n", value);
+}
+
+int dequeue(struct Queue *q) {
+    // If the queue is empty, return -1
+    if (q->front == NULL) {
+        printf("Queue underflow\n");
+        return -1;
+    }
+
+    // Get the data of the front node
+    int data = q->front->data;
+
+    // Update the front of the queue to the next node
+    struct Node *temp = q->front;
+    q->front = q->front->next;
+
+    // If the front becomes NULL, set the rear to NULL as well
+    if (q->front == NULL) {
+        q->rear = NULL;
+    }
+
+    // Free the memory of the front node
+    free(temp);
+
+    printf("Dequeued %d from the queue\n", data);
+
+    // Return the data of the front node
+    return data;
+}
+
+int main() {
+    struct Queue q;
+    q.front = q.rear = NULL;
+
+    enqueue(&q, 10);
+    enqueue(&q, 20);
+    enqueue(&q, 30);
+
+    int dequeued1 = dequeue(&q);
+    int dequeued2 = dequeue(&q);
+    int dequeued3 = dequeue(&q);
+    int dequeued4 = dequeue(&q);
+
+    return 0;
+}
+
+/*
+Output:
+Enqueued 10 onto the queue
+Enqueued 20 onto the queue
+Enqueued 30 onto the queue
+Dequeued 10 from the queue
+Dequeued 20 from the queue
+Dequeued 
+*/
