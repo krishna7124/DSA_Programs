@@ -1,0 +1,98 @@
+// Program 12: Deleting a node from a singly linked list.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+void insert(struct Node **head, int value) {
+    // Create a new node with the given value
+    struct Node *newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If the linked list is empty, make the new node as head
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    // Otherwise, find the last node in the list and add the new node
+    struct Node *temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+void display(struct Node *head) {
+    // Traverse the linked list and print all nodes
+    printf("Linked list: ");
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+void deleteNode(struct Node **head, int value) {
+    // If the linked list is empty, return
+    if (*head == NULL) {
+        return;
+    }
+
+    // If the node to be deleted is the head node, update the head and return
+    if ((*head)->data == value) {
+        struct Node *temp = *head;
+        *head = (*head)->next;
+        free(temp);
+        return;
+    }
+
+    // Traverse the linked list and find the node to be deleted
+    struct Node *temp = *head;
+    while (temp->next != NULL && temp->next->data != value) {
+        temp = temp->next;
+    }
+
+    // If the node to be deleted is not found, return
+    if (temp->next == NULL) {
+        return;
+    }
+
+    // Otherwise, delete the node
+    struct Node *delNode = temp->next;
+    temp->next = delNode->next;
+    free(delNode);
+}
+
+int main() {
+    struct Node *head = NULL;
+
+    // Insert nodes into the linked list
+    insert(&head, 10);
+    insert(&head, 20);
+    insert(&head, 30);
+    insert(&head, 40);
+
+    // Display the linked list
+    display(head);
+
+    // Delete node with value 20 from the linked list
+    deleteNode(&head, 20);
+
+    // Display the updated linked list
+    display(head);
+
+    return 0;
+}
+
+/*
+Output:
+
+Linked list: 10 20 30 40 
+Linked list: 10 30 40 
+*/
