@@ -1,0 +1,57 @@
+// Program 8: Write a program to create a linked list and to display it
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure of each node in the linked list
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int main() {
+    int n;
+    struct Node *head, *curr, *prev;
+    head = NULL;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    // Create n nodes and add them to the linked list
+    for (int i = 0; i < n; i++) {
+        curr = (struct Node*) malloc(sizeof(struct Node));
+        printf("Enter the data for node %d: ", i+1);
+        scanf("%d", &curr->data);
+        curr->next = NULL;
+
+        if (head == NULL) { // If this is the first node, set it as the head
+            head = curr;
+            prev = head;
+        } else { // Otherwise, add the node to the end of the list
+            prev->next = curr;
+            prev = curr;
+        }
+    }
+
+    // Display the elements of the linked list
+    printf("Elements of the linked list: ");
+    curr = head;
+    while (curr != NULL) {
+        printf("%d ", curr->data);
+        curr = curr->next;
+    
+
+    return 0;
+}
+
+
+/*
+Output:
+
+Enter the number of nodes: 4
+Enter the data for node 1: 10
+Enter the data for node 2: 20
+Enter the data for node 3: 30
+Enter the data for node 4: 40
+Elements of the linked list: 10 20 30 40
+*/
